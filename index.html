@@ -1,17 +1,29 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>anthony</title>
 
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  
+  <link rel="preload" as="style" href="https://fonts.cdnfonts.com/css/vcr-os-mono">
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
+
+ 
   <link href="https://fonts.cdnfonts.com/css/vcr-os-mono" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
-  <link rel="stylesheet" href="style.css">
+
+  
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
 
   <video autoplay muted loop playsinline id="bg-video">
-    <source src="background.mp4" type="video/mp4">
+    <source src="./background.mp4" type="video/mp4">
   </video>
 
   <!-- overlay -->
@@ -22,31 +34,30 @@
   <!-- main -->
   <div class="entered">
     <div class="box">
-      <img src="pfp.png " class="pfp" alt="pfp"/>
-      <div>
 
-      </div>
+      <!-- FIXED: removed broken space in filename -->
+      <img src="./pfp.png" class="pfp" alt="pfp"/>
+
       <h3>anth</h3>
       <p>don't act surprised</p>
 
-      
-
       <a href="https://discord.com/users/371126727428276224" target="_blank">
-        <img src="discord.png" height="30">
+        <img src="./discord.png" height="30">
       </a>
 
       <a href="https://t.me/dontextortme" target="_blank">
-        <img src="telegram.png" height="30">
+        <img src="./telegram.png" height="30">
       </a>
 
       <a href="https://tiktok.com/@phlne" target="_blank">
-        <img src="tiktok.png" height="30">
+        <img src="./tiktok.png" height="30">
       </a>
+
     </div>
   </div>
 
   <audio id="music" loop>
-    <source src="maybe.mp3" type="audio/mpeg">
+    <source src="./maybe.mp3" type="audio/mpeg">
   </audio>
 
   <div class="cursor" id="cursor"></div>
@@ -69,7 +80,6 @@ function typeWriter(text, i = 0) {
 }
 
 setTimeout(() => {
-  status.classList.add('fade-in');
   typeWriter('press any key to enter');
 }, 600);
 
@@ -83,7 +93,7 @@ function enterSite() {
   let v = 0;
   const fade = setInterval(()=>{
     if (v >= 0.5) return clearInterval(fade);
-    v += 0.5;
+    v += 0.05;
     music.volume = v;
   }, 50);
 
