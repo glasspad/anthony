@@ -1,66 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>anthony</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>anthony</title>
 
-  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.cdnfonts.com/css/vcr-os-mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
 
-  
-  <link rel="preload" as="style" href="https://fonts.cdnfonts.com/css/vcr-os-mono">
-  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Monaspace Neon', 'VCR OSD Mono', monospace;
+  color: white;
+  background: #121212;
+  overflow: hidden;
+}
 
- 
-  <link href="https://fonts.cdnfonts.com/css/vcr-os-mono" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
+#bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: blur(1.2px) brightness(0.75);
+  transform: scale(1.05);
+}
 
-  
-  <link rel="stylesheet" href="./style.css">
+/* FULL SCREEN BLUR ONLY */
+#overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10;
+  transition: opacity 0.8s ease;
+}
+
+#overlay.fade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#status {
+  font-size: 16px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 0.9; }
+}
+
+.entered { display:none; }
+
+.box {
+  background: rgba(10,10,10,0.3);
+  backdrop-filter: blur(12px);
+  padding: 40px 50px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.pfp {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+h3 {
+  margin: 5px 0;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+p { opacity: 0.8; }
+
+/* links */
+a, a:visited, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+a img {
+  transition: transform 0.2s ease, filter 0.3s ease;
+}
+
+a img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
+}
+
+/* cursor */
+.cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: blur(2px);
+  z-index: 999;
+}
+</style>
 </head>
 
 <body>
 
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="./background.mp4" type="video/mp4">
-  </video>
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="background.mp4" type="video/mp4">
+</video>
 
-  <!-- overlay -->
-  <div id="overlay">
-    <div id="status"></div>
+<div id="overlay">
+  <div id="status"></div>
+</div>
+
+<div class="entered">
+  <div class="box">
+    <img src="pfp.png" class="pfp" alt="pfp"/>
+    <h3>anth</h3>
+    <p>don't act surprised</p>
+
+    <a href="https://discord.com/users/371126727428276224" target="_blank">
+      <img src="discord.png" height="30">
+    </a>
+
+    <a href="https://t.me/dontextortme" target="_blank">
+      <img src="telegram.png" height="30">
+    </a>
+
+    <a href="https://tiktok.com/@phlne" target="_blank">
+      <img src="tiktok.png" height="30">
+    </a>
   </div>
+</div>
 
-  <!-- main -->
-  <div class="entered">
-    <div class="box">
+<audio id="music" loop>
+  <source src="maybe.mp3" type="audio/mpeg">
+</audio>
 
-      <!-- FIXED: removed broken space in filename -->
-      <img src="./pfp.png" class="pfp" alt="pfp"/>
-
-      <h3>anth</h3>
-      <p>don't act surprised</p>
-
-      <a href="https://discord.com/users/371126727428276224" target="_blank">
-        <img src="./discord.png" height="30">
-      </a>
-
-      <a href="https://t.me/dontextortme" target="_blank">
-        <img src="./telegram.png" height="30">
-      </a>
-
-      <a href="https://tiktok.com/@phlne" target="_blank">
-        <img src="./tiktok.png" height="30">
-      </a>
-
-    </div>
-  </div>
-
-  <audio id="music" loop>
-    <source src="./maybe.mp3" type="audio/mpeg">
-  </audio>
-
-  <div class="cursor" id="cursor"></div>
+<div class="cursor" id="cursor"></div>
 
 <script>
 const overlay = document.getElementById('overlay');
