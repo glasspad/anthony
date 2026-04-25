@@ -1,14 +1,116 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>anthony</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>anthony</title>
 
-<link href="https://fonts.cdnfonts.com/css/vcr-os-mono" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
+  <link href="https://fonts.cdnfonts.com/css/vcr-os-mono" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<style>
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+
+  <!-- overlay -->
+  <div id="overlay">
+    <div id="status"></div>
+  </div>
+
+  <!-- main -->
+  <div class="entered">
+    <div class="box">
+      <img src="pfp.png " class="pfp" alt="pfp"/>
+      <div>
+
+      </div>
+      <h3>anth</h3>
+      <p>don't act surprised</p>
+
+      
+
+      <a href="https://discord.com/users/371126727428276224" target="_blank">
+        <img src="discord.png" height="30">
+      </a>
+
+      <a href="https://t.me/dontextortme" target="_blank">
+        <img src="telegram.png" height="30">
+      </a>
+
+      <a href="https://tiktok.com/@phlne" target="_blank">
+        <img src="tiktok.png" height="30">
+      </a>
+
+      <a href="https://github.com/glasspad" target="_blank">
+        <img src="github.png" height="30">
+      </a>
+    </div>
+  </div>
+
+  <audio id="music" loop>
+    <source src="maybe.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="cursor" id="cursor"></div>
+
+<script>
+const overlay = document.getElementById('overlay');
+const entered = document.querySelector('.entered');
+const music = document.getElementById('music');
+const cursor = document.getElementById('cursor');
+const status = document.getElementById('status');
+
+let started = false;
+
+function typeWriter(text, i = 0) {
+  if (i === 0) status.textContent = "";
+  if (i < text.length) {
+    status.textContent += text.charAt(i);
+    setTimeout(() => typeWriter(text, i + 1), 20);
+  }
+}
+
+setTimeout(() => {
+  status.classList.add('fade-in');
+  typeWriter('press any key to enter');
+}, 600);
+
+function enterSite() {
+  if (started) return;
+  started = true;
+
+  music.volume = 0;
+  music.play().catch(()=>{});
+
+  let v = 0;
+  const fade = setInterval(()=>{
+    if (v >= 0.5) return clearInterval(fade);
+    v += 0.5;
+    music.volume = v;
+  }, 50);
+
+  entered.style.display = 'block';
+  overlay.classList.add('fade');
+  setTimeout(()=> overlay.style.display = 'none', 800);
+}
+
+document.addEventListener('keydown', enterSite, { once:true });
+document.addEventListener('click', enterSite, { once:true });
+
+document.addEventListener('mousemove', (e)=>{
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+</script>
+
+</body>
+</html>
+/* =========================
+   style.css
+========================= */
+
 body {
   margin: 0;
   height: 100vh;
@@ -32,7 +134,7 @@ body {
   transform: scale(1.05);
 }
 
-/* FULL SCREEN BLUR ONLY */
+/* FULL SCREEN BLUR ONLY (no box) */
 #overlay {
   position: fixed;
   inset: 0;
@@ -50,9 +152,6 @@ body {
   opacity: 0;
   pointer-events: none;
 }
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>anthony</title>
 
 #status {
   font-size: 16px;
@@ -90,7 +189,7 @@ h3 {
 
 p { opacity: 0.8; }
 
-/* links */
+/* remove link styling (no blue/red hypertext) */
 a, a:visited, a:active {
   color: inherit;
   text-decoration: none;
@@ -99,21 +198,12 @@ a, a:visited, a:active {
 a img {
   transition: transform 0.2s ease, filter 0.3s ease;
 }
-  <link href="https://fonts.cdnfonts.com/css/vcr-os-mono" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon/index.css">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
 a img:hover {
   transform: scale(1.1);
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
 }
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="background.mp4" type="video/mp4">
-  </video>
 
-/* cursor */
 .cursor {
   position: fixed;
   width: 18px;
@@ -125,88 +215,3 @@ a img:hover {
   filter: blur(2px);
   z-index: 999;
 }
-</style>
-</head>
-  <!-- overlay -->
-  <div id="overlay">
-    <div id="status"></div>
-  </div>
-
-<body>
-  <!-- main -->
-  <div class="entered">
-    <div class="box">
-      <img src="pfp.png " class="pfp" alt="pfp"/>
-      <div>
-
-<video autoplay muted loop playsinline id="bg-video">
-  <source src="background.mp4" type="video/mp4">
-</video>
-      </div>
-      <h3>anth</h3>
-      <p>don't act surprised</p>
-
-<div id="overlay">
-  <div id="status"></div>
-</div>
-      
-
-<div class="entered">
-  <div class="box">
-    <img src="pfp.png" class="pfp" alt="pfp"/>
-    <h3>anth</h3>
-    <p>don't act surprised</p>
-      <a href="https://discord.com/users/371126727428276224" target="_blank">
-        <img src="discord.png" height="30">
-      </a>
-
-    <a href="https://discord.com/users/371126727428276224" target="_blank">
-      <img src="discord.png" height="30">
-    </a>
-      <a href="https://t.me/dontextortme" target="_blank">
-        <img src="telegram.png" height="30">
-      </a>
-
-    <a href="https://t.me/dontextortme" target="_blank">
-      <img src="telegram.png" height="30">
-    </a>
-      <a href="https://tiktok.com/@phlne" target="_blank">
-        <img src="tiktok.png" height="30">
-      </a>
-
-    <a href="https://tiktok.com/@phlne" target="_blank">
-      <img src="tiktok.png" height="30">
-    </a>
-      <a href="https://github.com/glasspad" target="_blank">
-        <img src="github.png" height="30">
-      </a>
-    </div>
-  </div>
-</div>
-
-<audio id="music" loop>
-  <source src="maybe.mp3" type="audio/mpeg">
-</audio>
-  <audio id="music" loop>
-    <source src="maybe.mp3" type="audio/mpeg">
-  </audio>
-
-<div class="cursor" id="cursor"></div>
-  <div class="cursor" id="cursor"></div>
-
-<script>
-const overlay = document.getElementById('overlay');
-}
-
-setTimeout(() => {
-  status.classList.add('fade-in');
-  typeWriter('press any key to enter');
-}, 600);
-
-  let v = 0;
-  const fade = setInterval(()=>{
-    if (v >= 0.5) return clearInterval(fade);
-    v += 0.05;
-    v += 0.5;
-    music.volume = v;
-  }, 50);
